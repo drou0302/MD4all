@@ -9,5 +9,5 @@ $ pip install mdtraj matplotlib pysimplegui
 
 To run:
 ```
-python MD4all.py
+$ python MD4all.py
 ```
