@@ -233,7 +233,7 @@ def analysis_md(input_format, pdbfile, prmtop):
     plt.figure();
     plt.title('RMSD Average linkage hierarchical clustering');
     plt.ylabel('RMSD (nm)');
-    plt.xlable('Clusters');
+    plt.xlabel('Clusters');
     _ = scipy.cluster.hierarchy.dendrogram(linkage, truncate_mode='lastp', no_labels=True, count_sort='descendent');
     plt.savefig('clusters.png');
 
