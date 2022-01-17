@@ -145,26 +145,27 @@ def md(input_format, pdbfile, coordinate_file, topology_file, platform_sim, min_
         prmtop = AmberPrmtopFile(topology_file)
         inpcrd = AmberInpcrdFile(coordinate_file)
     forcefield = ForceField('amber14-all.xml', 'amber14/tip3pfb.xml')
-
+    platform = Platform.getPlatformByName(platform_sim)
+    
     print('Creating the system...')
     if input_format == 'PDB':
         system = forcefield.createSystem(pdb.topology, nonbondedMethod=NoCutoff, nonbondedCutoff=1*nanometer,
                                      rigidWater=True, ewaldErrorTolerance=0.0005)
         temp = int(temp_sim)
         integrator = LangevinIntegrator(temp * kelvin, 1 / picosecond, 0.002 * picoseconds)
-        simulation = Simulation(pdb.topology, system, integrator)
+        simulation = Simulation(pdb.topology, system, integrator, platform)
         simulation.context.setPositions(pdb.positions)
     else:
         system = prmtop.createSystem(nonbondedMethod=NoCutoff, nonbondedCutoff=1 * nanometer,
                                          rigidWater=True, ewaldErrorTolerance=0.0005)
         temp = int(temp_sim)
         integrator = LangevinIntegrator(temp * kelvin, 1 / picosecond, 0.002 * picoseconds)
-        simulation = Simulation(prmtop.topology, system, integrator)
+        simulation = Simulation(prmtop.topology, system, integrator, platform)
         simulation.context.setPositions(inpcrd.positions)
         if inpcrd.boxVectors is not None:
             simulation.context.setPeriodicBoxVectors(*inpcrd.boxVectors)
 
-    platform = Platform.getPlatformByName(platform_sim)
+    
 
 
     if min_sim == 'Yes':
