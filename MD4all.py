@@ -2,9 +2,9 @@ from __future__ import print_function
 from contextlib import redirect_stdout, redirect_stderr
 from os import path
 from sys import platform
-from simtk.openmm.app import *
-from simtk.openmm import *
-from simtk.unit import *
+from openmm.app import *
+from openmm import *
+from unit import *
 from sys import stdout
 from scipy.spatial.distance import squareform
 
